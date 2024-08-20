@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <h1>Practica 4: Roberto Lopez</h1>
+    
+    <canvas id="myCanvas" height="500" width="500" style="border: solid #000000;"></canvas>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "#ffc391";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "rgba(165, 18, 0)";
+        ctx.fillRect(150, 150, 100, 100);
+
+        ctx.fillStyle = "rgba(255, 255, 0, 0.7)";
+        ctx.fillRect(200, 200, 100, 100);
+
+        ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(250, 250, 100, 100);
+
+        ctx.beginPath();
+        ctx.moveTo(360, 150);
+        ctx.lineTo(420, 200);
+        ctx.lineTo(280, 200);
+        ctx.closePath();
+        ctx.fillStyle = "rgba(52, 152, 219, 0.7)";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(100, 400, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = "rgba(0, 255, 143)";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(180, 400, 50, 0, 2 * Math.PI);
+        ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(100, 380, 50, 0.5, .8 * Math.PI);
+        ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+        ctx.fillStyle = "rgba(165, 18, 0)";
+        ctx.lineWidth = 2;
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+    </script>
+</body>
+</html>

@@ -81,6 +81,14 @@
             ctx.drawImage(img, 390, 50, 120, 120);
         };
 
+        const grd = ctx.createLinearGradient(0, 0, 170, 0);
+        grd.addColorStop(0, "rgba(212, 45, 16, 0.7)");
+        grd.addColorStop(1, "rgba(137, 236, 249, 0.7)");
+
+        // Draw a filled Rectangle
+        ctx.fillStyle = grd;
+        ctx.fillRect(20, 240, 120, 100);
+
     </script>
 </body>
 </html>

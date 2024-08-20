@@ -30,12 +30,26 @@
         ctx.lineWidth = 2;
         ctx.strokeRect(250, 250, 100, 100);
 
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "rgba(250, 0, 0, 30)";
+        ctx.strokeRect(330, 330, 100, 100);
+
         ctx.beginPath();
         ctx.moveTo(360, 150);
         ctx.lineTo(420, 200);
         ctx.lineTo(280, 200);
         ctx.closePath();
         ctx.fillStyle = "rgba(52, 152, 219, 0.7)";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(390, 130);
+        ctx.lineTo(290, 230);
+        ctx.lineTo(290, 430);
+        ctx.closePath();
+        ctx.strokeStyle = "rgba(255, 0, 0, 1)";
+        ctx.stroke();
+        ctx.fillStyle = "rgba(182, 235, 255, 0.7)";
         ctx.fill();
 
         ctx.beginPath();
@@ -60,11 +74,6 @@
         ctx.stroke();
         ctx.closePath();
 
-        ctx.fillStyle = "rgba(207, 42, 195 )";
-        ctx.font = "36px PartyLetPlain";
-        ctx.fillText("Hola mundo!", 50, 50);
-        ctx.font = "35px PartyLetPlain";
-        ctx.strokeText("Hola mundo!",  52, 52);
 
     </script>
 </body>

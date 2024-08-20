@@ -8,7 +8,7 @@
 
 <body>
 
-    <h1>Practica 5: Roberto Lopez</h1>
+    <h1>Practica 6: Roberto Lopez</h1>
     
     <canvas id="myCanvas" height="500" width="500" style="border: solid #000000;"></canvas>
 
@@ -77,7 +77,14 @@
         ctx.font = "36px PartyLetPlain";
         ctx.fillText("Hola mundo!", 50, 50);
         ctx.font = "35px PartyLetPlain";
-        ctx.strokeText("Hola mundo!",  52, 52);
+        ctx.strokeText("Hola mundo!", 52, 52);
+
+        var img = new Image();
+        img.src = "MHW-Nergigante_Icon.webp";
+
+        img.onload = function () {
+            ctx.drawImage(img, 390, 50, 120, 120);
+        };
 
     </script>
 </body>

@@ -8,7 +8,7 @@
 
 <body>
 
-    <h1>Practica 6: Roberto Lopez</h1>
+    <h1>Practica 7: Roberto Lopez</h1>
     
     <canvas id="myCanvas" height="500" width="500" style="border: solid #000000;"></canvas>
 
@@ -18,6 +18,9 @@
 
         ctx.fillStyle = "#ffc391";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "rgba(128, 244, 249, 0.7)";
+        ctx.fillRect(90, 90, 100, 100);
 
         ctx.fillStyle = "rgba(165, 18, 0)";
         ctx.fillRect(150, 150, 100, 100);
@@ -32,14 +35,6 @@
         ctx.lineWidth = 5;
         ctx.strokeStyle = "rgba(250, 0, 0, 30)";
         ctx.strokeRect(330, 330, 100, 100);
-
-        ctx.beginPath();
-        ctx.moveTo(360, 150);
-        ctx.lineTo(420, 200);
-        ctx.lineTo(280, 200);
-        ctx.closePath();
-        ctx.fillStyle = "rgba(52, 152, 219, 0.7)";
-        ctx.fill();
 
         ctx.beginPath();
         ctx.moveTo(390, 130);

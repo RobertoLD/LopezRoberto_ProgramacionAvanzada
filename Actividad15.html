@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roberto Lopez - Practica: 15</title>
+</head>
+<body>
+
+    <h1>Roberto Lopez - Practica: 15</h1>
+
+    <canvas id="myCanvas" height="500" width="500" style="border: 1px solid #000000;"></canvas>
+    
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        let lastX, lastY;
+        let timer;
+        let Dibujar = true;
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function Circulo(x, y, radio = 20) {
+            const color = getRandomColor();
+
+            ctx.beginPath();
+            ctx.arc(x, y, radio, 0, Math.PI * 2);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = color + "AA";
+            ctx.fill();
+        }
+
+        function Cuadrado(x, y, lado = 100) { 
+            const color = getRandomColor();
+            const offset = lado / 2;
+
+            ctx.beginPath();
+            ctx.rect(x - offset, y - offset, lado, lado);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = color + "AA";
+            ctx.fill();
+        }
+
+        function Esthela(x, y) {
+            const radio = 3;
+            const color = "rgba(0, 0, 0, 0.8)";
+
+            ctx.beginPath();
+            ctx.arc(x, y, radio, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+
+        canvas.addEventListener("mousemove", (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            Esthela(x, y);
+
+            clearTimeout(timer);
+            lastX = x;
+            lastY = y;
+            timer = setTimeout(() => {
+                if (Dibujar) {
+                    Circulo(lastX, lastY, 50);
+                } else {
+                    Cuadrado(lastX, lastY, 100);
+                }
+            }, 500);
+        });
+
+        canvas.addEventListener("mouseout", () => {
+
+            Dibujar = !Dibujar;
+        });
+    </script>
+</body>
+</html>

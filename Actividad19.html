@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roberto Lopez - Practica: 19</title>
+</head>
+<body>
+    <h1>Roberto Lopez - Practica: 19</h1>
+
+    <canvas id="myCanvas" height="500" width="500" style="border: 1px solid #000000;"></canvas>
+    
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var super_x = 100;
+        var super_y = 100;
+        var lado = 100;
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function Cuadrado(x, y) {
+            const color = getRandomColor();
+            const offset = lado / 2;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.rect(x - offset, y - offset, lado, lado);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = color + "AA";
+            ctx.fill();
+        }
+
+        function Shake(e) {
+            switch(e.keyCode) {
+                case 37:
+                    super_x -= 10;
+                    break;
+                case 38:
+                    super_y -= 10;
+                    break;
+                case 39:
+                    super_x += 10;
+                    break;
+                case 40:
+                    super_y += 10;
+                    break;
+            }
+            if (super_x < 0) super_x = canvas.width;
+            if (super_x > canvas.width) super_x = 0;
+            if (super_y < 0) super_y = canvas.height;
+            if (super_y > canvas.height) super_y = 0;
+
+            Cuadrado(super_x, super_y);
+        }
+
+        document.addEventListener('keydown', Cuadrado);
+
+        Cuadrado(super_x, super_y);
+    </script>
+</body>
+</html>

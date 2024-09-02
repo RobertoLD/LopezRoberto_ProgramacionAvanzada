@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Actividad 21: Avatar - Roberto Lopez</title>
+    </head>
+
+    <body>
+        
+        <h1>Actividad 21: Roberto Lopez</h1>
+    
+        <canvas id="myCanvas" height="500" width="500" style="border: solid #000000;"></canvas>
+
+        <script>
+
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "rgba(174, 135, 90)";
+ctx.beginPath();
+ctx.arc(200, 150, 80, 0, Math.PI * 2, true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "rgba(255, 255, 255, 1)";
+ctx.beginPath();
+ctx.arc(170, 130, 20, 0, Math.PI * 2, true);
+ctx.closePath();
+ctx.fill();
+ctx.beginPath();
+ctx.arc(230, 130, 20, 0, Math.PI * 2, true);
+ctx.closePath();
+ctx.fill();
+
+ctx.fillStyle = "rgba(0, 0, 0, 1)";
+ctx.beginPath();
+ctx.arc(170, 130, 10, 0, Math.PI * 2, true);
+ctx.closePath();
+ctx.fill();
+ctx.beginPath();
+ctx.arc(230, 130, 10, 0, Math.PI * 2, true);
+ctx.closePath();
+ctx.fill();
+
+ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+ctx.beginPath();
+ctx.arc(170, 130, 25, 0, Math.PI * 2, true);
+ctx.stroke();
+ctx.beginPath();
+ctx.arc(230, 130, 25, 0, Math.PI * 2, true);
+ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(195, 130);
+ctx.lineTo(205, 130);
+ctx.stroke();
+
+ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+ctx.lineWidth = 5;
+ctx.beginPath();
+ctx.arc(200, 180, 40, 0, Math.PI, false);
+ctx.stroke();
+
+ctx.fillStyle = "rgba(0, 0, 0, 1)";
+ctx.fillRect(150, 230, 100, 150);
+
+ctx.fillStyle = "rgba(174, 135, 90)";
+ctx.fillRect(100, 230, 50, 25);
+ctx.fillRect(250, 230, 50, 25);
+
+ctx.beginPath();
+ctx.arc(100, 240, 15, 0, Math.PI * 2, true);
+ctx.fill();
+ctx.beginPath();
+ctx.arc(300, 240, 15, 0, Math.PI * 2, true);
+ctx.fill();
+
+ctx.fillStyle = "rgba(0, 0, 0, 1)";
+ctx.fillRect(170, 380, 20, 80);
+ctx.fillRect(210, 380, 20, 80);
+
+ctx.fillStyle = "rgba(101, 67, 33, 1)";
+ctx.beginPath();
+ctx.arc(180, 470, 20, 0, Math.PI * 2, true);
+ctx.fill();
+ctx.beginPath();
+ctx.arc(220, 470, 20, 0, Math.PI * 2, true);
+ctx.fill();
+
+ctx.fillStyle = "rgba(0, 0, 0, 1)";
+ctx.beginPath();
+ctx.moveTo(120, 120);
+ctx.lineTo(160, 50);
+ctx.lineTo(240, 50);
+ctx.lineTo(280, 120);
+ctx.closePath();
+ctx.fill();
+
+ctx.beginPath();
+ctx.moveTo(160, 50);
+ctx.lineTo(140, 80);
+ctx.lineTo(180, 60);
+ctx.lineTo(200, 90);
+ctx.lineTo(220, 60);
+ctx.lineTo(260, 80);
+ctx.lineTo(240, 50);
+ctx.closePath();
+ctx.fill();
+
+
+        /*ctx.fillStyle = "rgba(190, 0, 0 )";
+        ctx.fillRect(10, 10, 100, 100);*/
+
+        /*ctx.lineWidth = 5;
+        ctx.strokeStyle = "rgba(250, 0, 0, 30)";
+        ctx.strokeRect(330, 330, 100, 100);*/
+
+        /*ctx.beginPath();
+        ctx.moveTo(390, 130);
+        ctx.lineTo(290, 230);
+        ctx.lineTo(290, 430);
+        ctx.closePath();
+        ctx.strokeStyle = "rgba(255, 0, 0, 1)";
+        ctx.stroke();
+        ctx.fillStyle = "rgba(182, 235, 255, 0.7)";
+        ctx.fill();*/
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Actividad 24: Sonic - Roberto Lopez</title>
+    </head>
+
+    <body>
+        
+        <h1>Actividad 24: Roberto Lopez</h1>
+    
+        <canvas id="myCanvas" height="500" width="500" style="border: solid #000000;"></canvas>
+
+        <script>
+
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        for (let fila = 0; fila < canvas.height / 30; fila++) {
+            for (let columna = 0; columna < canvas.width / 30; columna++) {
+                
+                const x = columna * 30;
+                const y = fila * 30;
+
+                if ((fila + columna) % 2 === 0) {
+                    ctx.fillStyle = "rgba(192, 96, 0 )";
+                } else {
+                    ctx.fillStyle = "rgba(96, 32, 0)";
+                }
+
+                ctx.lineWidth = 2;
+                ctx.fillRect(x, y, 30, 30);
+            }
+        }
+
+        ctx.fillStyle = "rgba(0, 0, 131)";
+        ctx.fillRect(0, 0, 500, 230);
+
+        ctx.fillStyle = "rgba(0, 30, 191)";
+        ctx.fillRect(0, 230, 500, 100);
+
+        ctx.fillStyle = "rgba(0, 30, 191,  0.7)";
+        ctx.fillRect(0, 200, 500, 100);
+
+        ctx.fillStyle = "rgba(0, 49, 255,  0.5)";
+        ctx.fillRect(0, 230, 500, 50);
+
+        ctx.fillStyle = "rgba(0, 0, 0,  0.5)";
+        ctx.fillRect(0, 340, 500, 70);
+
+        ctx.beginPath();
+        ctx.arc(100, 305, 20, 1, 5 * Math.PI);
+        ctx.strokeStyle = "rgba(240, 240, 0)";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(150, 292, 20, 1, 5 * Math.PI);
+        ctx.strokeStyle = "rgba(240, 240, 0)";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(50, 298, 20, 1, 5 * Math.PI);
+        ctx.strokeStyle = "rgba(240, 240, 0)";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.fillStyle = "rgba(146, 255, 0)";
+        ctx.fillRect(445, 235, 10, 90);
+
+        ctx.fillStyle = "rgba(139, 69, 19)";
+        ctx.fillRect(-10, 100, 20, 220);
+
+        ctx.fillStyle = "rgba(0, 128, 0)";
+
+        ctx.beginPath();
+        ctx.moveTo(0, 100);
+        ctx.lineTo(-120, 20);
+        ctx.lineTo(0, 80);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 100);
+        ctx.lineTo(120, 20);
+        ctx.lineTo(0, 80);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 120);
+        ctx.lineTo(-90, 60);
+        ctx.lineTo(0, 90);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 120);
+        ctx.lineTo(90, 60);
+        ctx.lineTo(0, 90);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 140);
+        ctx.lineTo(-60, 100);
+        ctx.lineTo(0, 110);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 140);
+        ctx.lineTo(60, 100);
+        ctx.lineTo(0, 110);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = "rgba(139, 69, 19)";
+        ctx.fillRect(300, 100, 20, 220);
+
+        ctx.fillStyle = "rgba(0, 128, 0)";
+
+        ctx.beginPath();
+        ctx.moveTo(310, 100);
+        ctx.lineTo(210, 20);
+        ctx.lineTo(310, 80);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(310, 100);
+        ctx.lineTo(410, 20);
+        ctx.lineTo(310, 80);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(310, 120);
+        ctx.lineTo(240, 60);
+        ctx.lineTo(310, 90);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(310, 120);
+        ctx.lineTo(380, 60);
+        ctx.lineTo(310, 90);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(310, 140);
+        ctx.lineTo(260, 100);
+        ctx.lineTo(310, 110);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(310, 140);
+        ctx.lineTo(360, 100);
+        ctx.lineTo(310, 110);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.beginPath();
+        ctx.moveTo(434, 250);
+        ctx.lineTo(446, 260);
+        ctx.lineTo(434, 270);
+        ctx.lineTo(414, 260);
+        ctx.lineWidth = 2;
+        ctx.fillStyle = "rgba(126, 230, 0)";
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(434, 300);
+        ctx.lineTo(446, 310);
+        ctx.lineTo(434, 320);
+        ctx.lineTo(414, 310);
+        ctx.lineWidth = 2;
+        ctx.fillStyle = "rgba(126, 230, 0)";
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(444, 280);
+        ctx.lineTo(464, 270);
+        ctx.lineTo(484, 280);
+        ctx.lineTo(464, 290);
+        ctx.lineWidth = 2;
+        ctx.fillStyle = "rgba(126, 230, 0)";
+        ctx.closePath();
+        ctx.fill();
+
+        for (let girasol = 0; girasol < 12; girasol++) {
+            const Angulo = girasol * (2 * Math.PI / 12);
+            
+            ctx.beginPath();
+            ctx.moveTo(450 + 60 * Math.cos(Angulo), 220 + 60 * Math.sin(Angulo));
+            ctx.lineTo(450 + 20 * Math.cos(Angulo + Math.PI / 3), 220 + 20 * Math.sin(Angulo + Math.PI / 3));
+            ctx.lineTo(450 + 20 * Math.cos(Angulo - Math.PI / 3), 220 + 20 * Math.sin(Angulo - Math.PI / 3));
+            ctx.closePath();
+            ctx.fillStyle = "rgba(255, 255, 0 )";
+            ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(450, 220, 25, 1, 5 * Math.PI);
+        ctx.fillStyle = "rgba(182, 53, 157)";
+        ctx.fill();
+        ctx.closePath();
+
+
+        for (let rectangulos = 0; rectangulos < canvas.width; ) {
+
+            const Ondulado = 20 * Math.sin(rectangulos * 0.02);
+
+            ctx.fillStyle = "rgba(131, 222, 0)";
+            ctx.fillRect(rectangulos, 310 + Ondulado, 10, 50);
+
+            rectangulos += 10;
+
+            ctx.fillStyle = "rgba(0, 118, 0)";
+            ctx.fillRect(rectangulos, 310 + Ondulado, 6, 50);
+
+            rectangulos += 6;
+        }
+
+        var img = new Image();
+        img.src = "Sonic.gif";
+
+        img.onload = function () {
+            ctx.drawImage(img, 250, 216, 80, 80);
+        };
+
+
+        
+        </script>
+    </body>
+</html>

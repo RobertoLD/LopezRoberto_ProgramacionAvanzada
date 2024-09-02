@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Actividad 22: Paisaje - Roberto Lopez</title>
+    </head>
+    <body>
+
+        <h1>Actividad 22: Roberto Lopez</h1>
+
+        <canvas id="myCanvas" height="500" width="500" style="border: solid #000000;"></canvas>
+        
+        <script>
+
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            ctx.fillStyle = "rgba(0, 90, 163)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.lineWidth = 2;
+
+            ctx.fillStyle = "rgba(34, 139, 34)";
+            ctx.fillRect(0, 250, canvas.width, 250);
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.strokeRect(0, 250, canvas.width, 250);
+
+            ctx.fillStyle = "rgba(200, 150, 100)";
+            ctx.fillRect(100, 250, 300, 250);
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.strokeRect(100, 250, 300, 250);
+
+            ctx.beginPath();
+            ctx.moveTo(100, 250);
+            ctx.lineTo(250, 150);
+            ctx.lineTo(400, 250);
+            ctx.closePath();
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.stroke();
+            ctx.fillStyle = "rgba(150, 50, 50)";
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = "rgba(101, 67, 33)";
+            ctx.fillRect(200, 400, 50, 100);
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(200, 400, 50, 100);
+
+            ctx.beginPath();
+            ctx.arc(210, 450, 5, 0, Math.PI * 2, false);
+            ctx.fillStyle = "rgba(255, 185, 114)";
+            ctx.fill();
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = "rgba(173, 216, 230)";
+            ctx.fillRect(110, 340, 80, 80);
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(110, 340, 80, 80);
+
+            ctx.beginPath();
+            ctx.moveTo(110, 370);
+            ctx.lineTo(190, 370);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(150, 340);
+            ctx.lineTo(150, 420);
+            ctx.stroke();
+
+            ctx.fillStyle = "rgba(173, 216, 230)";
+            ctx.fillRect(310, 340, 80, 80);
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(310, 340, 80, 80);
+
+            ctx.beginPath();
+            ctx.moveTo(310, 370);
+            ctx.lineTo(390, 370);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(350, 340);
+            ctx.lineTo(350, 420);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(250, 180, 20, 0, Math.PI * 2, false);
+            ctx.fillStyle = "rgba(173, 216, 230)";
+            ctx.fill();
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.fillStyle = "rgba(200, 50, 50)";
+            ctx.fillRect(310, 170, 30, 70);
+            ctx.strokeStyle = "rgba(0, 0, 0)";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(310, 170, 30, 70);
+
+            ctx.beginPath();
+            ctx.arc(325, 160, 10, 0, Math.PI * 2, false);
+            ctx.arc(340, 140, 10, 0, Math.PI * 2, false);
+            ctx.arc(355, 120, 10, 0, Math.PI * 2, false);
+            ctx.fillStyle = "rgba(200, 200, 200, 0.7)";
+            ctx.fill();
+        </script>
+    </body>
+</html>

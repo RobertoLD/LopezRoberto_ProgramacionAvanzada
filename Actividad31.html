@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Actividad 31: colision con obstaculo - Roberto Lopez</title>
+    </head>
+    <body>
+
+        <h1>Actividad 31: Roberto Lopez</h1>
+
+        <canvas id="myCanvas" width="600" height="500"></canvas>
+
+        <script type="text/javascript">
+
+            const myCanvas = document.getElementById("myCanvas"); 
+            const ctx = myCanvas.getContext("2d");
+
+            class Cuadrado {
+
+                constructor(color, alto, ancho, x, y, speed) {
+                    this.color = color;
+                    this.alto = alto;
+                    this.ancho = ancho;
+                    this.x = x;
+                    this.y = y;
+                    this.speed = speed;
+                }
+
+                colision(otro) {
+
+                    return !(this.x + this.ancho < otro.x ||
+                             this.x > otro.x + otro.ancho ||
+                             this.y + this.alto < otro.y ||
+                             this.y > otro.y + otro.alto);
+                }
+            }
+
+            var player = new Cuadrado("red", 30, 30, 100, 100, 5);
+            var target = new Cuadrado("blue", 10, 10, 200, 200, null);
+            var wall = new Cuadrado("grey", 30, 200, 250, 250, null);
+
+            function dibujarPlayer() {
+                ctx.fillStyle = player.color;
+                ctx.fillRect(player.x, player.y, player.ancho, player.alto);
+                ctx.strokeRect(player.x, player.y, player.ancho, player.alto);
+            }
+
+            document.addEventListener('keypress', function(e) {
+                switch(e.keyCode) {
+                    case 119:
+                        direction = 'up';
+                        break;
+                    case 115:
+                        direction = 'down';
+                        break;
+                    case 97:
+                        direction = 'left';
+                        break;
+                    case 100:
+                        direction = 'right';
+                        break;
+                    case 32:
+                        player.speed += 2.5;
+                        break;
+                } 
+            });
+
+            var direction = "";
+
+            function update() {
+                let prevX = player.x;
+                let prevY = player.y;
+
+                switch(direction) {
+                    case 'up':
+                        player.y -= player.speed;
+                        if (player.y <= 10) {
+                            player.y = 480;
+                        }
+                        break;
+                    case 'down':
+                        player.y += player.speed;
+                        if (player.y > 500) {
+                            player.y = 0;
+                        }
+                        break;
+                    case 'right':
+                        player.x += player.speed;
+                        if (player.x > 570) {
+                            player.x = 0;
+                        }
+                        break;
+                    case 'left':
+                        player.x -= player.speed;
+                        if (player.x <= 10) {
+                            player.x = 580;
+                        }
+                        break;
+                }
+
+                if (player.colision(wall)) {
+                    player.x = prevX;
+                    player.y = prevY;
+                }
+
+                if (player.colision(target)) {
+                    target.x = Math.random() * (myCanvas.width - target.ancho);
+                    target.y = Math.random() * (myCanvas.height - target.alto);
+                }
+            }
+
+            function paint() {
+                ctx.fillStyle = "white";
+                ctx.fillRect(0, 0, 600, 500);
+
+                ctx.font = "15px Arial"; 
+                ctx.fillStyle = "black"; 
+                ctx.fillText("Speed: " + player.speed, 510, 30);
+
+                ctx.fillStyle = player.color;
+                ctx.fillRect(player.x, player.y, player.ancho, player.alto);
+                ctx.strokeRect(player.x, player.y, player.ancho, player.alto);
+
+                ctx.fillStyle = target.color;
+                ctx.fillRect(target.x, target.y, target.ancho, target.alto);
+                ctx.strokeRect(target.x, target.y, target.ancho, target.alto);
+
+                ctx.fillStyle = wall.color;
+                ctx.fillRect(wall.x, wall.y, wall.ancho, wall.alto);
+                ctx.strokeRect(wall.x, wall.y, wall.ancho, wall.alto);
+
+                update();
+                requestAnimationFrame(paint);
+            }
+
+            requestAnimationFrame(paint);
+
+            window.requestAnimationFrame = (function () {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    function (callback) {
+                        window.setTimeout(callback, 17);
+                    };
+            }());
+        </script>
+    </body>
+</html>
+

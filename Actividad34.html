@@ -38,7 +38,10 @@
             }
         }
 
-        var player = new Cuadrado("red", 30, 30, 100, 100, 5);
+        var img = new Image();
+        img.src = "Ner-Chan.png";
+
+        var player = new Cuadrado(img, 30, 30, 100, 100, 5);
         var target = new Cuadrado("blue", 10, 10, 200, 200, null);
 
         var walls = [
@@ -120,7 +123,7 @@
 
         function paint() {
             if (Pausa) {
-                ctx.fillStyle = "rgba(198, 193, 192, 0.5)";
+                ctx.fillStyle = "rgba(198, 193, 192, 0.02)";
                 ctx.fillRect(0, 0, 600, 500);
 
                 ctx.font = "30px Arial"; 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 7 - Roberto Lopez: Lista de Juegos</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app" style="text-align: center;">
+
+        <h1>Actividad 7: Roberto Lopez</h1>
+
+        <h2>Lista de juegos:</h2>
+
+        <ul>
+            <li v-for="(juego, index) in juegos" :key="index">
+                {{ index + 1 }}. {{ juego.nombre }} : {{ juego.clase }} - {{ juego.calificacion }}
+            </li>
+        </ul>
+
+        <h3>Nuevo juego</h3>
+        <div>
+            <input v-model="nuevoJuego.nombre" placeholder="Nombre del juego">
+        </div>
+        <div>
+            <input v-model="nuevoJuego.clase" placeholder="Género del juego">
+        </div>
+        <div>
+            <input type="number" v-model.number="nuevoJuego.calificacion" placeholder="Calificación">
+        </div>
+        <div>
+            <button @click="agregarJuego">Save</button>
+        </div>
+
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    juegos: [
+                        { nombre: 'The Witcher 3', clase: 'Rol RPG', calificacion: 95 },
+                        { nombre: 'Monster Hunter', clase: 'Action RPG', calificacion: 90 },
+                        { nombre: 'Bloodborne', clase: 'Rol RPG', calificacion: 85 },
+                        { nombre: 'Fallout', clase: 'Shooter RPG', calificacion: 92 }
+                    ],
+                    nuevoJuego: {
+                        nombre: '',
+                        clase: '',
+                        calificacion: null
+                    }
+                };
+            },
+            methods: {
+                agregarJuego() {
+                    if (this.nuevoJuego.nombre !== '' && this.nuevoJuego.clase !== '' && this.nuevoJuego.calificacion !== null) {
+                        this.juegos.push({ ...this.nuevoJuego });
+                        this.nuevoJuego.nombre = '';
+                        this.nuevoJuego.clase = '';
+                        this.nuevoJuego.calificacion = null;
+                    }
+                }
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

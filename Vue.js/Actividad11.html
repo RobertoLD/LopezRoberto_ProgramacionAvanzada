@@ -61,65 +61,43 @@
           const logeado = ref(false);
           const nombre = ref('');
 
+          const usuarios = [
+            {
+              "email": "roberto@alu.com",
+              "password": "123",
+              "nombre": "Roberto"
+            }
+          ];
+
           const login = async () => {
             console.log('Email:', email.value);
             console.log('Contraseña:', password.value);
             
-            fetch('usuario11.json')
-              .then(resp => {
-
-                if (!resp.ok) {
-
-                  throw new Error('Error al cargar el archivo JSON');
+            const usuarioValido = usuarios
+              .map(usuario => {
+                if (usuario.email === email.value && usuario.password === password.value) {
+                  nombre.value = usuario.nombre;
+                  return true;
                 }
-
-                return resp.json();
+                return false;
               })
+              .includes(true);
 
-              .then(usuarios => {
-
-                const usuarioValido = usuarios
-
-                  .map(usuario => {
-
-                    if (usuario.email === email.value && usuario.password === password.value) {
-
-                      nombre.value = usuario.nombre;
-
-                      return true;
-                    }
-
-                    return false;
-                  })
-
-                  .includes(true);
-
-                if (usuarioValido) {
-
-                  mensaje.value = 'Bienvenido';
-                  logeado.value = true;
-
-                } else {
-
-                  mensaje.value = 'La contraseña o el correo son incorrectos';
-                  limpiar();
-
-                }
-              })
-              .catch(error => {
-
-                mensaje.value = 'Error al obtener los datos de usuario: ' + error.message;
-              });
+            if (usuarioValido) {
+              mensaje.value = 'Bienvenido';
+              logeado.value = true;
+            } else {
+              mensaje.value = 'La contraseña o el correo son incorrectos';
+              limpiar();
+            }
           };
 
           const limpiar = () => {
-
             email.value = '';
             password.value = '';
           };
 
           return {
-
             email,
             password,
             mensaje,

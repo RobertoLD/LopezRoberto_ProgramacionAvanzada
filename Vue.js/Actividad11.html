@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 11 Roberto Lopez - Login</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style type="text/css">
+        input {
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Actividad 11: Roberto Lopez</h1>
+    <div id="app">
+
+        <h1>Hola, ¡Mucho gusto!: {{ nombre }}</h1>
+        <input v-model="Nombre" placeholder="Escribe tu nombre">
+        <input v-model="Email" placeholder="Escribe tu email">
+        <input v-model="Password" placeholder="Escribe tu password">
+
+    </div>
+
+    <script>
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    nombre: '',
+                    email: '',
+                    password: ''
+
+                };
+            },
+            methods: {
+                
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>

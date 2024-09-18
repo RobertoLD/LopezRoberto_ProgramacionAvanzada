@@ -19,76 +19,118 @@
     <h2>Login:</h2>
 
     <div id="main">
-        <div v-if="!isLoggedIn">
+
+        <div v-if="!logeado">
+
             <hr>
-            <form @submit.prevent="handleLogin">
+
+            <form @submit.prevent="login">
+
                 <fieldset>
-                    <label>
-                        Email
-                    </label>
-                    <input type="email" v-model="useremail" placeholder="Escribe aquí">
+
+                    <label>Email</label>
+                    <input type="email" v-model="email" placeholder="Escribe aquí">
                     <hr>
-                    <label>
-                        Contraseña
-                    </label>
-                    <input type="password" v-model="userpassword" placeholder="Escribe aquí">
+
+                    <label>Contraseña</label>
+                    <input type="password" v-model="password" placeholder="Escribe aquí">
                     <hr>
-                    <button type="submit">
-                        Entrar
-                    </button>
+                    
+                    <button type="submit">Entrar</button>
                 </fieldset>
             </form>
-            <div v-if="message">{{ message }}</div>
+            <div v-if="mensaje">{{ mensaje }}</div>
             <hr>
         </div>
         <div v-else>
-            <h2>Bienvenido</h2>
+            <h2>Bienvenido, {{ nombre }}</h2>
         </div>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
+
       const { createApp, ref } = Vue;
 
       createApp({
         setup() {
-          const useremail = ref('');
-          const userpassword = ref('');
-          const message = ref('');
-          const isLoggedIn = ref(false);
 
-          const handleLogin = async () => {
-            try {
-              const response = await fetch('usaurio11.json');
-              if (!response.ok) {
-                throw new Error('Error, usuario no encontrado');
-              }
-              const usuarios = await response.json();
-              
-              const usuarioEncontrado = usuarios.some(usuario => 
-                usuario.email === useremail.value && usuario.password === userpassword.value
-              );
+          const email = ref('');
+          const password = ref('');
+          const mensaje = ref('');
+          const logeado = ref(false);
+          const nombre = ref('');
 
-              if (usuarioEncontrado) {
-                message.value = 'Bienvenido';
-                isLoggedIn.value = true;
-              } else {
-                message.value = 'La contraseña o el correo son erróneos';
-              }
-            } catch (error) {
-              message.value = 'Error al obtener los datos de usuario: ' + error.message;
-            }
+          const login = async () => {
+            console.log('Email:', email.value);
+            console.log('Contraseña:', password.value);
+            
+            fetch('usuario11.json')
+              .then(resp => {
+
+                if (!resp.ok) {
+
+                  throw new Error('Error al cargar el archivo JSON');
+                }
+
+                return resp.json();
+              })
+
+              .then(usuarios => {
+
+                const usuarioValido = usuarios
+
+                  .map(usuario => {
+
+                    if (usuario.email === email.value && usuario.password === password.value) {
+
+                      nombre.value = usuario.nombre;
+
+                      return true;
+                    }
+
+                    return false;
+                  })
+
+                  .includes(true);
+
+                if (usuarioValido) {
+
+                  mensaje.value = 'Bienvenido';
+                  logeado.value = true;
+
+                } else {
+
+                  mensaje.value = 'La contraseña o el correo son incorrectos';
+                  limpiar();
+
+                }
+              })
+              .catch(error => {
+
+                mensaje.value = 'Error al obtener los datos de usuario: ' + error.message;
+              });
+          };
+
+          const limpiar = () => {
+
+            email.value = '';
+            password.value = '';
           };
 
           return {
-            useremail,
-            userpassword,
-            message,
-            isLoggedIn,
-            handleLogin
+
+            email,
+            password,
+            mensaje,
+            logeado,
+            nombre,
+            login
           };
         }
+
       }).mount('#main');
+      
     </script>
 </body>
 </html>

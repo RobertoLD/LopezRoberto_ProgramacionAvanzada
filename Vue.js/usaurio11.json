@@ -1,11 +1,7 @@
 [
-    {
-      "email": "roberto@alu.com",
-      "password": "123"
-    },
-    {
-      "email": "Juana@correo.com",
-      "password": "1234"
-    }
-  ]
-  
+  {
+    "email": "roberto@alu.com",
+    "password": "123",
+    "nombre": "Roberto"
+  }
+]

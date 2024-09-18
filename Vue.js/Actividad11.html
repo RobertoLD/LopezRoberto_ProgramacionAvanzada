@@ -4,42 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actividad 11 Roberto Lopez - Login</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style type="text/css">
         input {
             background-color: aqua;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
 
     <h1>Actividad 11: Roberto Lopez</h1>
-    <div id="app">
+    <h2>Login:</h2>
 
-        <h1>Hola, ¡Mucho gusto!: {{ nombre }}</h1>
-        <input v-model="Nombre" placeholder="Escribe tu nombre">
-        <input v-model="Email" placeholder="Escribe tu email">
-        <input v-model="Password" placeholder="Escribe tu password">
-
+    <div id="main">
+        <div v-if="!isLoggedIn">
+            <hr>
+            <form @submit.prevent="handleLogin">
+                <fieldset>
+                    <label>
+                        Email
+                    </label>
+                    <input type="email" v-model="useremail" placeholder="Escribe aquí">
+                    <hr>
+                    <label>
+                        Contraseña
+                    </label>
+                    <input type="password" v-model="userpassword" placeholder="Escribe aquí">
+                    <hr>
+                    <button type="submit">
+                        Entrar
+                    </button>
+                </fieldset>
+            </form>
+            <div v-if="message">{{ message }}</div>
+            <hr>
+        </div>
+        <div v-else>
+            <h2>Bienvenido</h2>
+        </div>
     </div>
 
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
+      const { createApp, ref } = Vue;
 
-        const app = Vue.createApp({
-            data() {
-                return {
-                    nombre: '',
-                    email: '',
-                    password: ''
+      createApp({
+        setup() {
+          const useremail = ref('');
+          const userpassword = ref('');
+          const message = ref('');
+          const isLoggedIn = ref(false);
 
-                };
-            },
-            methods: {
-                
+          const handleLogin = async () => {
+            try {
+              const response = await fetch('usaurio11.json');
+              if (!response.ok) {
+                throw new Error('Error, usuario no encontrado');
+              }
+              const usuarios = await response.json();
+              
+              const usuarioEncontrado = usuarios.some(usuario => 
+                usuario.email === useremail.value && usuario.password === userpassword.value
+              );
+
+              if (usuarioEncontrado) {
+                message.value = 'Bienvenido';
+                isLoggedIn.value = true;
+              } else {
+                message.value = 'La contraseña o el correo son erróneos';
+              }
+            } catch (error) {
+              message.value = 'Error al obtener los datos de usuario: ' + error.message;
             }
-        });
+          };
 
-        app.mount('#app');
+          return {
+            useremail,
+            userpassword,
+            message,
+            isLoggedIn,
+            handleLogin
+          };
+        }
+      }).mount('#main');
     </script>
 </body>
 </html>

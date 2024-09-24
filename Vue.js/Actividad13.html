@@ -87,23 +87,23 @@
                 const logeado = ref(false);
                 const nombre = ref('');
                 const usuarios = ref([]);
+                const usuariosCargados = ref(false);
 
                 const cargarUsuarios = async () => {
+                    if (usuariosCargados.value) return;
 
                     const usuariosStorage = localStorage.getItem('usuarios');
                     const usuariosLocales = usuariosStorage ? JSON.parse(usuariosStorage) : [];
 
                     try {
-
                         const response = await fetch('Usuarios12.json');
                         const usuariosJson = await response.json();
-
                         usuarios.value = [...usuariosJson, ...usuariosLocales];
-
+                        usuariosCargados.value = true;
                     } catch (error) {
-
                         console.error('Error al cargar usuarios del JSON:', error);
                         usuarios.value = usuariosLocales;
+                        usuariosCargados.value = true;
                     }
                 };
 

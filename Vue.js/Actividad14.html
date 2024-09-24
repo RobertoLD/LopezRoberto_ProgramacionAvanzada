@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 14 Roberto Lopez - Editar</title>
+    <style type="text/css">
+        input {
+            background-color: aqua;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 2px solid #c0feff;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #c0feff;
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .button-delete, .button-edit {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .button-delete {
+            background-color: black;
+            color: red;
+            border: none;
+        }
+        .button-edit {
+            background-color: blue;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Actividad 14: Roberto Lopez</h1>
+    <h2>Login:</h2>
+
+    <div id="main">
+        <div>
+            <hr>
+            <form @submit.prevent="modoEdicion ? actualizarUsuario() : login()">
+                <fieldset>
+                    <label>Email</label>
+                    <input type="email" v-model="email" placeholder="Escribe aquí" :disabled="modoEdicion">
+                    <hr>
+                    <label>Contraseña</label>
+                    <input type="password" v-model="password" placeholder="Escribe aquí">
+                    <hr>
+                    <button type="submit">{{ modoEdicion ? 'Guardar cambios' : 'Entrar' }}</button>
+                </fieldset>
+            </form>
+
+            <button @click="registrarUsuario" v-if="!modoEdicion">Registrar nuevo usuario</button>
+            <div v-if="mensaje">{{ mensaje }}</div>
+            <hr>
+
+            <div class="container">
+                <h2>Usuarios registrados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Contraseña</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="usuario in usuarios" :key="usuario.email">
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.password }}</td>
+                            <td>{{ usuario.nombre }}</td>
+                            <td>
+                                <button class="button-delete" @click="eliminarUsuario(usuario.email)">Eliminar</button>
+                                <button class="button-edit" @click="editarUsuario(usuario)">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                const email = ref('');
+                const password = ref('');
+                const nombre = ref('');
+                const mensaje = ref('');
+                const logeado = ref(false);
+                const modoEdicion = ref(false);
+                const usuarios = ref([]);
+
+                const cargarUsuarios = async () => {
+                    const usuariosStorage = localStorage.getItem('usuarios');
+                    const usuariosLocales = usuariosStorage ? JSON.parse(usuariosStorage) : [];
+
+                    try {
+                        const response = await fetch('Usuarios12.json');
+                        const usuariosJson = await response.json();
+                        usuarios.value = [...usuariosJson, ...usuariosLocales];
+                    } catch (error) {
+                        console.error('Error al cargar usuarios del JSON:', error);
+                        usuarios.value = usuariosLocales;
+                    }
+                };
+
+                onMounted(cargarUsuarios);
+
+                const login = () => {
+                    const usuarioValido = usuarios.value.some(usuario => {
+                        return usuario.email === email.value && usuario.password === password.value;
+                    });
+
+                    if (usuarioValido) {
+                        mensaje.value = 'Bienvenido';
+                        logeado.value = true;
+                    } else {
+                        mensaje.value = 'La contraseña o el correo son incorrectos';
+                        limpiar();
+                    }
+                };
+
+                const registrarUsuario = () => {
+                    const nuevoUsuario = {
+                        email: email.value,
+                        password: password.value,
+                        nombre: nombre.value || email.value.split('@')[0]
+                    };
+
+                    usuarios.value.push(nuevoUsuario);
+                    localStorage.setItem('usuarios', JSON.stringify(usuarios.value));
+                    mensaje.value = 'Usuario registrado exitosamente';
+                    limpiar();
+                };
+
+                const eliminarUsuario = (emailUsuario) => {
+                    usuarios.value = usuarios.value.filter(usuario => usuario.email !== emailUsuario);
+                    localStorage.setItem('usuarios', JSON.stringify(usuarios.value));
+                    mensaje.value = 'Usuario eliminado exitosamente';
+                };
+
+                const editarUsuario = (usuario) => {
+                    email.value = usuario.email;
+                    password.value = usuario.password;
+                    nombre.value = usuario.nombre;
+                    modoEdicion.value = true;
+                };
+
+                const actualizarUsuario = () => {
+                    if (modoEdicion.value) {
+                        const usuarioActualizado = {
+                            email: email.value,
+                            password: password.value,
+                            nombre: nombre.value
+                        };
+
+                        const index = usuarios.value.findIndex(usuario => usuario.email === usuarioActualizado.email);
+                        if (index !== -1) {
+                            usuarios.value[index] = usuarioActualizado;
+                            localStorage.setItem('usuarios', JSON.stringify(usuarios.value));
+                            mensaje.value = 'Usuario actualizado exitosamente';
+                        }
+
+                        limpiar();
+                        modoEdicion.value = false;
+                    }
+                };
+
+                const limpiar = () => {
+                    email.value = '';
+                    password.value = '';
+                    nombre.value = '';
+                };
+
+                return {
+                    email,
+                    password,
+                    nombre,
+                    mensaje,
+                    logeado,
+                    modoEdicion,
+                    usuarios,
+                    login,
+                    registrarUsuario,
+                    eliminarUsuario,
+                    editarUsuario,
+                    actualizarUsuario,
+                };
+            }
+        }).mount('#main');
+    </script>
+</body>
+</html>

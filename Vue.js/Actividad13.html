@@ -27,6 +27,13 @@
         .container {
             margin-top: 20px;
         }
+        .button-delete {
+            background-color: black;
+            color: red;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +68,7 @@
                             <th>Email</th>
                             <th>Contraseña</th>
                             <th>Nombre</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,6 +76,9 @@
                             <td>{{ usuario.email }}</td>
                             <td>{{ usuario.password }}</td>
                             <td>{{ usuario.nombre }}</td>
+                            <td>
+                                <button class="button-delete" @click="eliminarUsuario(usuario.email)">Eliminar</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -87,11 +98,8 @@
                 const logeado = ref(false);
                 const nombre = ref('');
                 const usuarios = ref([]);
-                const usuariosCargados = ref(false);
 
                 const cargarUsuarios = async () => {
-                    if (usuariosCargados.value) return;
-
                     const usuariosStorage = localStorage.getItem('usuarios');
                     const usuariosLocales = usuariosStorage ? JSON.parse(usuariosStorage) : [];
 
@@ -99,11 +107,9 @@
                         const response = await fetch('Usuarios12.json');
                         const usuariosJson = await response.json();
                         usuarios.value = [...usuariosJson, ...usuariosLocales];
-                        usuariosCargados.value = true;
                     } catch (error) {
                         console.error('Error al cargar usuarios del JSON:', error);
                         usuarios.value = usuariosLocales;
-                        usuariosCargados.value = true;
                     }
                 };
 
@@ -140,6 +146,12 @@
                     limpiar();
                 };
 
+                const eliminarUsuario = (emailUsuario) => {
+                    usuarios.value = usuarios.value.filter(usuario => usuario.email !== emailUsuario);
+                    localStorage.setItem('usuarios', JSON.stringify(usuarios.value));
+                    mensaje.value = 'Usuario eliminado exitosamente';
+                };
+
                 const limpiar = () => {
                     email.value = '';
                     password.value = '';
@@ -153,7 +165,8 @@
                     nombre,
                     usuarios,
                     login,
-                    registrarUsuario
+                    registrarUsuario,
+                    eliminarUsuario
                 };
             }
         }).mount('#main');

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 Roberto Lopez - Less</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Actividad 4: Roberto Lopez</h1>
+    <h2>Login:</h2>
+
+    <div id="main">
+        <div>
+            <hr>
+            <form @submit.prevent="modoEdicion ? actualizarUsuario() : login()">
+                <fieldset>
+                    <label>Email</label>
+                    <input class="input-field" type="email" v-model="email" placeholder="Escribe aquí" :disabled="modoEdicion">
+                    <hr>
+                    <label>Contraseña</label>
+                    <input class="input-field" type="password" v-model="password" placeholder="Escribe aquí">
+                    <hr>
+                    <button type="submit">{{ modoEdicion ? 'Guardar cambios' : 'Entrar' }}</button>
+                </fieldset>
+            </form>
+
+            <button @click="registrarUsuario" v-if="!modoEdicion">Registrar nuevo usuario</button>
+            <div v-if="mensaje">{{ mensaje }}</div>
+            <hr>
+
+            <div class="container">
+                <h2>Usuarios registrados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Contraseña</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="usuario in usuarios" :key="usuario.email">
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.password }}</td>
+                            <td>{{ usuario.nombre }}</td>
+                            <td>
+                                <button class="button-delete" @click="eliminarUsuario(usuario.email)">Eliminar</button>
+                                <button class="button-edit" @click="editarUsuario(usuario)">Editar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

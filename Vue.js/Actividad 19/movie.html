@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 19 - API peliculas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #lista-pelis {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .pelicula {
+            width: 200px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .btn-borrar {
+            background-color: #f44336;
+        }
+
+        .btn-borrar:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lista-pelis"></div>
+
+    <script>
+        const apiKey = 'T038869891676c1f2a94f18a96cb7093e';
+        const token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzg4Njk4OTE2NzZjMWYyYTk0ZjE4YTk2Y2I3MDkzZSIsIm5iZiI6MTcyODU5NDc5NS4xNTAyMDUsInN1YiI6IjY3MDgzOGE4ODcxZmMzMThiN2EzNDUxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DZxtVj9NbKsTHdg5RHO4a3zDZeDwW8ic5NjEkq5n3A8';
+
+        const usuario = JSON.parse(localStorage.getItem('usuarioLogeado'));
+        if (!usuario) {
+            alert('Debes iniciar sesión primero');
+            window.location.href = 'index.html';
+        }
+
+        const obtenerPelis = async () => {
+            const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=es-ES&page=1`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+            const data = await res.json();
+            mostrarPelis(data.results);
+        };
+
+        const mostrarPelis = (pelis) => {
+            const lista = document.getElementById('lista-pelis');
+            lista.innerHTML = '';
+            pelis.forEach(peli => {
+                lista.innerHTML += `
+                    <div class="pelicula">
+                        <img src="https://image.tmdb.org/t/p/w500/${peli.poster_path}" alt="${peli.title}">
+                        <h3>${peli.title}</h3>
+                        <button onclick="calificar(${peli.id})">Calificar</button>
+                        <button class="btn-borrar" onclick="borrarCalificacion(${peli.id})">Eliminar calificación</button>
+                    </div>
+                `;
+            });
+        };
+
+        const calificar = async (id) => {
+            const valor = prompt('Introduce una calificación (0.5 - 10):');
+            if (!valor || isNaN(valor) || valor < 0.5 || valor > 10) {
+                alert('Por favor, introduce un valor válido entre 0.5 y 10.');
+                return;
+            }
+
+            const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/rating?api_key=${apiKey}&guest_session_id=${usuario.session_id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({ value: parseFloat(valor) })
+            });
+
+            const resultado = await res.json();
+            if (resultado.status_message === 'Success') {
+                alert('Película calificada exitosamente');
+            } else {
+                alert('Error al calificar la película');
+            }
+        };
+
+        const borrarCalificacion = async (id) => {
+            const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/rating?api_key=${apiKey}&guest_session_id=${usuario.session_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            });
+
+            if (res.ok) {
+                alert('Calificación eliminada exitosamente');
+            } else {
+                alert('Error al eliminar la calificación');
+            }
+        };
+
+        obtenerPelis();
+    </script>
+</body>
+</html>

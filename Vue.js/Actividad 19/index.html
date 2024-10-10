@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 19: Roberto Lopez - TMDB API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form, .container {
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .mensaje {
+            text-align: center;
+            margin-top: 10px;
+            color: red;
+        }
+
+        .container button {
+            background-color: #008CBA;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Iniciar sesión</h1>
+
+    <div id="main">
+        <form @submit.prevent="login">
+            <fieldset>
+                <label>Email</label>
+                <input type="email" v-model="email" placeholder="Escribe tu email">
+                
+                <label>Contraseña</label>
+                <input type="password" v-model="password" placeholder="Escribe tu contraseña">
+                
+                <button type="submit">Entrar</button>
+            </fieldset>
+        </form>
+
+        <button @click="registrarUsuario">Registrar nuevo usuario</button>
+
+        <div v-if="mensaje" class="mensaje">{{ mensaje }}</div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const email = ref('');
+                const password = ref('');
+                const mensaje = ref('');
+                const usuarios = ref(JSON.parse(localStorage.getItem('usuarios')) || []);
+
+                const login = () => {
+                    const usuarioValido = usuarios.value.find(usuario => usuario.email === email.value && usuario.password === password.value);
+
+                    if (usuarioValido) {
+                        localStorage.setItem('usuarioLogeado', JSON.stringify(usuarioValido));
+                        window.location.href = 'movies.html';
+                    } else {
+                        mensaje.value = 'Correo o contraseña incorrectos';
+                    }
+                };
+
+                const registrarUsuario = () => {
+                    if (email.value && password.value) {
+                        const nuevoUsuario = { email: email.value, password: password.value };
+                        usuarios.value.push(nuevoUsuario);
+                        localStorage.setItem('usuarios', JSON.stringify(usuarios.value));
+                        mensaje.value = 'Usuario registrado exitosamente';
+                        email.value = '';
+                        password.value = '';
+                    } else {
+                        mensaje.value = 'Por favor, completa todos los campos';
+                    }
+                };
+
+                return { email, password, mensaje, login, registrarUsuario };
+            }
+        }).mount('#main');
+    </script>
+</body>
+</html>

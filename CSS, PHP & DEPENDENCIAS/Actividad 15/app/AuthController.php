@@ -26,14 +26,13 @@ class AuthController {
         
         $response = curl_exec($curl);
         curl_close($curl);
-
         $response = json_decode($response);
-
-        if (isset($response->message)) {
-            echo "<script>alert('Error: " . $response->message . "'); window.location.href='./login.html';</script>";
+        
+        if (isset($response->data) && is_object($response->data)) {
+            $_SESSION['user_data'] = $response->data;
+            header("Location: ./Home.html");
         } else {
-            header("Location: ../Home.html");
-            exit();
+            header("Location: ./login.html");
         }
     }
 }
